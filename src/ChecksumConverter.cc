@@ -560,6 +560,8 @@ static uint32_t brksCryo(const uint8_t* data, size_t len, uint32_t sum)
     while (len--)  {
         sum += (*data++) & 0x7F;
     }
+    //using uint32 may be greater than 0xff and make checksum error
+    sum&=0xFF;
     xsum = (((sum >> 6) ^ sum) & 0x3F) + 0x30;
     return xsum;
 }
